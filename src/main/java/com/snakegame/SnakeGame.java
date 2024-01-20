@@ -6,9 +6,10 @@ public class SnakeGame {
 
     public static void main(String[] args) {
         GameBoard gameBoard = new GameBoard();
+        KeyListenerGameBoard keyListenerGameBoard = new KeyListenerGameBoard(gameBoard);
 
         JFrame frame = new JFrame();
-        frame.addKeyListener(new KeyListenerSnake(gameBoard.getSnake()));
+        frame.addKeyListener(keyListenerGameBoard);
         frame.setFocusable(true);
         frame.requestFocusInWindow();
         frame.add(gameBoard);

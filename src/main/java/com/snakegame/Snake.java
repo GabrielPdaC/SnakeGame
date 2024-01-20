@@ -1,6 +1,7 @@
 package com.snakegame;
 
 import java.awt.Point;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Snake {
@@ -13,8 +14,6 @@ public class Snake {
         headPosition = new Point(14, 14);
         bodyPositions = new LinkedList<Point>();
         bodyPositions.add(new Point(14, 13));
-        bodyPositions.add(new Point(14, 12));
-        bodyPositions.add(new Point(14, 11));
         direction = Direction.NONE;
     }
     
@@ -29,7 +28,7 @@ public class Snake {
     public void updatePosition() {
         if (direction==Direction.NONE)
             return;
-            
+
         int x = 0,y = 0;
         switch (direction) {
             case UP:
@@ -51,7 +50,39 @@ public class Snake {
         headPosition = new Point(headPosition.x + x, headPosition.y + y);
         bodyPositions.removeLast();
     }
+
+    public boolean detectColision() {
+        // Detect colision with board
+        if (headPosition.x>=30 || 
+            headPosition.x<0 ||
+            headPosition.y>=30 ||
+            headPosition.y<0)
+            return true;
+        // Detect colision with body
+            Iterator<Point> bodyPositions = this.bodyPositions.iterator();
+            while (bodyPositions.hasNext()) {
+                Point bodyPosition = bodyPositions.next();
+                if (bodyPosition.x==headPosition.x && bodyPosition.y==headPosition.y)
+                    return true;
+            }
+        return false;
+    }
+    
+    public boolean detectFoodColision(Food food) {
+        Point foodPosition = food.getPosition();
+        if (headPosition.x==foodPosition.x &&
+            headPosition.y==foodPosition.y){
+            bodyPositions.addLast(bodyPositions.getLast());
+            return true;
+        }
+        return false;
+    }    
+
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
+    public Direction getDirection() {
+        return direction;
+    }    
 }

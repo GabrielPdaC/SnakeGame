@@ -13,22 +13,33 @@ class GameBoard extends JPanel implements ActionListener {
     private Food food;
     private Snake snake;
     private Timer timer = new Timer(200, this);
-    
+    private GameStatus gameStatus;
+    private boolean keyPressed;
 
     GameBoard() {
         setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
         setBackground(Color.BLACK);
         setFocusable(true);
-
         food = new Food();
-        snake = new Snake();
         timer.start();
+        gameStatus = GameStatus.STOPPED;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        keyPressed = false;
+        if (gameStatus==GameStatus.STOPPED){
+            snake = new Snake();
+        }
+        if (snake.detectFoodColision(food))
+            food = new Food();
         snake.updatePosition();
         repaint();
+        if (snake.detectColision()) {
+            food = new Food();
+            gameStatus = GameStatus.STOPPED;
+        }
+
     }
 
     @Override
@@ -54,6 +65,19 @@ class GameBoard extends JPanel implements ActionListener {
 
     public Snake getSnake() {
         return snake;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }    
+
+    public void setKeyPressed(boolean keyPressed) {
+        this.keyPressed = keyPressed;
+    }
+
+    public boolean isKeyPressed() {
+        return keyPressed;
+    }
+
 }
 

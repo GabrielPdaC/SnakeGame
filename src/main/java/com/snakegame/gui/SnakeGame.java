@@ -1,9 +1,12 @@
-package com.snakegame;
+package com.snakegame.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import com.snakegame.data.GameData;
+import com.snakegame.data.GameStatus;
 
 public class SnakeGame implements ActionListener {
 

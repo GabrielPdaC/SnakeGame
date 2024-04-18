@@ -1,9 +1,9 @@
-package com.snakegame;
+package com.snakegame.data;
 
 import java.awt.Point;
 import java.util.Random;
 
-public class Food {
+class Food {
     
     Point position;
 

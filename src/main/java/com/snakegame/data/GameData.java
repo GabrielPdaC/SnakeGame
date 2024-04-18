@@ -1,9 +1,9 @@
-package com.snakegame;
+package com.snakegame.data;
 
 import java.awt.*;
 import java.util.LinkedList;
 
-class GameData  {
+public class GameData  {
 
     private int score;
     private int timeElapsed;
@@ -11,7 +11,7 @@ class GameData  {
     private Snake snake;
     private GameStatus gameStatus;
 
-    GameData() {
+    public GameData() {
         score = 0;
         timeElapsed = 0;
         food = new Food();

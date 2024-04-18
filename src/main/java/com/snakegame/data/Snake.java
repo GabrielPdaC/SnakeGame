@@ -1,10 +1,10 @@
-package com.snakegame;
+package com.snakegame.data;
 
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Snake {
+class Snake {
 
     private Point headPosition;
     private LinkedList<Point> bodyPositions;

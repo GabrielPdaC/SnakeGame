@@ -1,10 +1,15 @@
-package com.snakegame;
+package com.snakegame.gui;
 
 import javax.swing.*;
+
+import com.snakegame.data.GameData;
+import com.snakegame.data.GameStatus;
+
 import java.awt.*;
 import java.util.LinkedList;
 
 class GameBoard extends JPanel  {
+    
     private final int GAMEBOARD_WIDTH = 320;
     private final int GAMEBOARD_HEIGHT = 340;
 

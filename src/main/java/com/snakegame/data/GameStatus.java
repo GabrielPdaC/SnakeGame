@@ -1,4 +1,4 @@
-package com.snakegame;
+package com.snakegame.data;
 
 public enum GameStatus {
     STOPPED,

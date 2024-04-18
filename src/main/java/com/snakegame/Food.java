@@ -9,8 +9,8 @@ public class Food {
 
     public Food() {
         Random rand = new Random();
-        int posX = rand.nextInt(30);
-        int posY = rand.nextInt(30);
+        int posX = rand.nextInt(30) + 1;
+        int posY = rand.nextInt(30) + 1;
         position = new Point(posX, posY);
     }
     

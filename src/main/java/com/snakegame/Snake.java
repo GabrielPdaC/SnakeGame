@@ -53,10 +53,10 @@ public class Snake {
 
     public boolean detectColision() {
         // Detect colision with board
-        if (headPosition.x>=30 || 
-            headPosition.x<0 ||
-            headPosition.y>=30 ||
-            headPosition.y<0)
+        if (headPosition.x>=31 || 
+            headPosition.x<1 ||
+            headPosition.y>=31 ||
+            headPosition.y<1)
             return true;
         // Detect colision with body
             Iterator<Point> bodyPositions = this.bodyPositions.iterator();
@@ -72,16 +72,29 @@ public class Snake {
         Point foodPosition = food.getPosition();
         if (headPosition.x==foodPosition.x &&
             headPosition.y==foodPosition.y){
-            bodyPositions.addLast(bodyPositions.getLast());
             return true;
         }
         return false;
     }    
 
+    public void increaseLength() {
+        bodyPositions.addLast(bodyPositions.getLast());
+    }
 
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if (this.direction==Direction.UP || this.direction==Direction.DOWN) { 
+            if (direction==Direction.LEFT || direction==Direction.RIGHT) {
+                this.direction = direction;
+            }
+        } else if (this.direction==Direction.LEFT || this.direction==Direction.RIGHT) {
+            if (direction==Direction.UP || direction==Direction.DOWN) {
+                this.direction = direction;
+            }
+        } else {
+            this.direction = direction;
+        }
     }
+
     public Direction getDirection() {
         return direction;
     }    

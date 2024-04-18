@@ -1,23 +1,59 @@
 package com.snakegame;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class SnakeGame {
+public class SnakeGame implements ActionListener {
+
+    JFrame frame;
+    GameData gameData;
+    GameBoard gameBoard;
+    KeyListenerSnake keyListenerSnake;
+    Timer timer;
+    boolean keyPressed;
 
     public static void main(String[] args) {
-        GameBoard gameBoard = new GameBoard();
-        KeyListenerGameBoard keyListenerGameBoard = new KeyListenerGameBoard(gameBoard);
+        SnakeGame snakeGame = new SnakeGame();
+        snakeGame.run();
+    }
 
-        JFrame frame = new JFrame();
-        frame.addKeyListener(keyListenerGameBoard);
+    public SnakeGame() {
+        timer = new Timer(100, this);
+        gameData = new GameData();
+        gameBoard = new GameBoard(gameData);
+        keyListenerSnake = new KeyListenerSnake(gameData);
+        
+        frame = new JFrame();
+        frame.addKeyListener(keyListenerSnake);
         frame.setFocusable(true);
         frame.requestFocusInWindow();
         frame.add(gameBoard);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Snake Game");
         frame.pack();
-        frame.setVisible(true);
         frame.setLocationRelativeTo(null);
+    }
+    
+    public void run(){
+        timer.start();
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        gameData.updateGameBoard();
+        gameBoard.repaint();
+        if (gameData.getGameStatus()==GameStatus.RUNNING) {
+            gameData.incrementTimeElapsed();
+        } else {
+            gameData = new GameData();
+            gameBoard.setGameData(gameData);
+            keyListenerSnake.setGameData(gameData);
+        }
+
+        keyListenerSnake.setKeyPressed(false);
     }
 }
 

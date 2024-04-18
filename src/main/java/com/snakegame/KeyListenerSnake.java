@@ -5,33 +5,49 @@ import java.awt.event.KeyListener;
 
 class KeyListenerSnake implements KeyListener {
 
-    private Snake snake;
+    private GameData gameData;
+    private boolean keyPressed;
 
-    public KeyListenerSnake(Snake snake) {
-        this.snake = snake;
+    public KeyListenerSnake(GameData gameData) {
+        this.gameData = gameData;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (keyPressed)
+            return;
+
+        gameData.setGameStatus(GameStatus.RUNNING);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                snake.setDirection(Direction.UP);
+                gameData.setSnakeDirection(Direction.UP);
                 break;
             case KeyEvent.VK_S:
-                snake.setDirection(Direction.DOWN);
+                gameData.setSnakeDirection(Direction.DOWN);
                 break;
             case KeyEvent.VK_A:
-                snake.setDirection(Direction.LEFT);
+                gameData.setSnakeDirection(Direction.LEFT);
                 break;
             case KeyEvent.VK_D:
-                snake.setDirection(Direction.RIGHT);
+                gameData.setSnakeDirection(Direction.RIGHT);
                 break;
         }
+
+        keyPressed = true;
     }
 
     @Override
     public void keyReleased(KeyEvent arg0) { }
-
+    
     @Override
     public void keyTyped(KeyEvent arg0) { }
+
+    public void setGameData(GameData gameData) {
+        this.gameData = gameData;
+    }
+
+    public void setKeyPressed(boolean keyPressed) {
+        this.keyPressed = keyPressed;
+    }
+    
 }
